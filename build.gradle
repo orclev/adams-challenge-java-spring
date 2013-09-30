@@ -1,0 +1,26 @@
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'jetty'
+apply plugin: 'eclipse'
+
+sourceCompatibility = 1.6
+version = 1.0
+httpPort = 9999
+
+jettyRunWar {
+	contextPath = '/'
+}
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  compile group: 'org.springframework', name: 'spring-core', version: '3.2.4.RELEASE'
+  compile group: 'org.springframework', name: 'spring-webmvc', version: '3.2.4.RELEASE'
+  compile group: 'org.springframework.data', name: 'spring-data-redis', version: '1.1.0.RELEASE'
+  compile group: 'org.codehaus.jackson', name: 'jackson-core-asl', version: '1.8.8'
+  compile group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version: '1.8.8'
+  runtime 'commons-pool:commons-pool:1.5.6'
+  runtime 'redis.clients:jedis:2.1.0'
+}
