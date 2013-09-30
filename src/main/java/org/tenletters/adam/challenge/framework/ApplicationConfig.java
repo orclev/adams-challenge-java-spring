@@ -25,21 +25,21 @@ public class ApplicationConfig {
 		return factory;
 	}
 	
-	@Bean(name="userTemplate")
-	public RedisTemplate<String, User> redisUserTemplate() {
-		RedisTemplate<String, User> template = new RedisTemplate<String, User>();
-		template.setValueSerializer(new JacksonJsonRedisSerializer<User>(User.class));
+	private <T> RedisTemplate<String,T> getRedisTemplate(final Class<T> type) {
+		RedisTemplate<String, T> template = new RedisTemplate<String, T>();
+		template.setValueSerializer(new JacksonJsonRedisSerializer<T>(type));
 		template.setKeySerializer(new StringRedisSerializer());
 		template.setConnectionFactory(jedisConnectionFactory());
 		return template;
 	}
 	
+	@Bean(name="userTemplate")
+	public RedisTemplate<String, User> redisUserTemplate() {
+		return getRedisTemplate(User.class);
+	}
+	
 	@Bean(name="userLinkTemplate")
 	public RedisTemplate<String, UserLink> redisUserLinkTemplate() {
-		RedisTemplate<String, UserLink> template = new RedisTemplate<String, UserLink>();
-		template.setValueSerializer(new JacksonJsonRedisSerializer<UserLink>(UserLink.class));
-		template.setKeySerializer(new StringRedisSerializer());
-		template.setConnectionFactory(jedisConnectionFactory());
-		return template;
+		return getRedisTemplate(UserLink.class);
 	}
 }

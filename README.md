@@ -8,7 +8,7 @@ Pre-Reqs
 
 Install redis, code expects it to be running on localhost at port 6379.
 
-Install gradle
+Install gradle.
 
 How to build
 ------------
